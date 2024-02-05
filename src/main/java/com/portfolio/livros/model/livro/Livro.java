@@ -4,9 +4,9 @@ public class Livro {
     public String titulo;
     public String autor;
 
-    public Livro(DadosCadastraFilme dadosCadastraFilme) {
-        this.titulo = dadosCadastraFilme.titulo();
-        this.autor = dadosCadastraFilme.autor();
+    public Livro(DadosCadastraLivro dadosCadastraLivro) {
+        this.titulo = dadosCadastraLivro.titulo();
+        this.autor = dadosCadastraLivro.autor();
     }
 
     @Override
