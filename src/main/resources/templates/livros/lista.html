@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en"  xmlns:th="thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -9,6 +9,23 @@
 </head>
 <body>
 <h1>Minha lista de livros</h1>
+<table>
+    <thead>
+    <tr>
+        <th>TITULO</th>
+        <th>AUTOR</th>
+        <th>AÇÕES</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="livro : ${lista}">
+        <td th:text="${livro.titulo}"></td>
+        <td th:text="${livro.autor}"></td>
+    </tr>
+
+    </tbody>
+</table>
+
 <a href="/livros/formulario">Cadastrar livro</a>
 
 </body>

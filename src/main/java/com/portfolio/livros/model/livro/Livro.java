@@ -1,8 +1,8 @@
 package com.portfolio.livros.model.livro;
 
 public class Livro {
-    public String titulo;
-    public String autor;
+    private String titulo;
+    private String autor;
 
     public Livro(DadosCadastraLivro dadosCadastraLivro) {
         this.titulo = dadosCadastraLivro.titulo();
