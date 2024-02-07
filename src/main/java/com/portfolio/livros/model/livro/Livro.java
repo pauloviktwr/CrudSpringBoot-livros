@@ -1,8 +1,24 @@
 package com.portfolio.livros.model.livro;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "livros")
+
 public class Livro {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String titulo;
     private String autor;
+
+    public Long getId() {
+        return id;
+    }
+
+    public Livro() {
+    }
 
     public Livro(DadosCadastraLivro dadosCadastraLivro) {
         this.titulo = dadosCadastraLivro.titulo();

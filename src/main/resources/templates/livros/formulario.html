@@ -1,19 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{template.html}">
 <head>
-    <meta charset="UTF-8">
     <title>Formulario Livros</title>
 </head>
 <body>
-<form method="post" action="/livros">
-    <label for="titulo">Titulo:</label>
-    <input id="titulo" name="titulo" type="text"><br>
+<div layout:fragment="conteudo">
+    <form method="post" action="/livros">
+       <div>
+           <label for="titulo">Titulo:</label>
+        <input id="titulo" name="titulo" type="text"><br>
+       </div>
 
-    <label for="Autor">Autor:</label>
-    <input id="autor" name="autor" type="text"><br>
+        <div>
+        <label for="Autor">Autor:</label>
+        <input id="autor" name="autor" type="text"><br>
+        </div>
 
-    <input type="submit">
-    <a href="/livros">Meus livros</a>
-</form>
+        <div>
+        <input type="submit">
+        </div>
+        <a href="/livros">Meus livros</a>
+    </form>
+</div>
 </body>
 </html>

@@ -1,32 +1,32 @@
 <!doctype html>
-<html lang="en"  xmlns:th="thymeleaf.org">
+<html lang="en"
+      xmlns:th="thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{template.html}">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Livros</title>
 </head>
 <body>
-<h1>Minha lista de livros</h1>
-<table>
+<div layout:fragment="conteudo">
+    <h1>Minha lista de livros</h1>
+    <table>
     <thead>
     <tr>
-        <th>TITULO</th>
-        <th>AUTOR</th>
-        <th>AÇÕES</th>
+    <th>TITULO</th>
+    <th>AUTOR</th>
+    <th>AÇÕES</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="livro : ${lista}">
-        <td th:text="${livro.titulo}"></td>
-        <td th:text="${livro.autor}"></td>
+    <td th:text="${livro.titulo}"></td>
+    <td th:text="${livro.autor}"></td>
     </tr>
 
     </tbody>
-</table>
+    </table>
 
-<a href="/livros/formulario">Cadastrar livro</a>
-
+    <a href="/livros/formulario">Cadastrar livro</a>
+</div>
 </body>
 </html>
