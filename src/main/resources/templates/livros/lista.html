@@ -21,6 +21,13 @@
     <tr th:each="livro : ${lista}">
     <td th:text="${livro.titulo}"></td>
     <td th:text="${livro.autor}"></td>
+    <td>
+        <form action="/livros" method="post">
+            <input type="hidden" name="_method" value="delete">
+            <input type="hidden" name="id" th:value="${livro.id}">
+            <input type="submit" value="Excluir">
+        </form>
+    </td>
     </tr>
 
     </tbody>
