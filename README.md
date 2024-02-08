@@ -4,4 +4,6 @@
 Aplicação web adotando arquitetura de software MVC, utilizando Java e Spring Boot. 
 
 O projeto fornece operações CRUD, e persistência de dados com SGBD MySQL. 
-![CRUD livros ‐ Feito com o Clipchamp (1)](https://github.com/pauloviktwr/CrudSpringBoot-livros/assets/127359543/f362f13e-3cf0-4a0f-b633-48f7eac3c452)
+
+
+![Vídeo sem título ‐ Feito com o Clipchamp (1) (1)](https://github.com/pauloviktwr/CrudSpringBoot-livros/assets/127359543/df975e71-b652-4c05-ad39-d5473330b22d)
