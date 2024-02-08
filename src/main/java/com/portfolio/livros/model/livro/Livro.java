@@ -48,4 +48,9 @@ public class Livro {
     public void setAutor(String autor) {
         this.autor = autor;
     }
+
+    public void atualizarLivro(DadosEditarLivro dadosEditarLivro) {
+        this.autor = dadosEditarLivro.autor();
+        this.titulo = dadosEditarLivro.titulo();
+    }
 }

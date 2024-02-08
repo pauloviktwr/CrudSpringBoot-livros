@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"
+      xmlns:th="thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{template.html}">
 <head>
@@ -8,18 +9,22 @@
 <body>
 <div layout:fragment="conteudo">
     <form method="post" action="/livros">
+
+        <input type="hidden" name="_method" value="put" th:if="${livro != null}">
+        <input type="hidden" name="id" th:value="${livro?.id}">
+
        <div>
            <label for="titulo">Titulo:</label>
-        <input id="titulo" name="titulo" type="text"><br>
+           <input id="titulo" name="titulo" th:value="${livro?.titulo}">
        </div>
 
         <div>
-        <label for="Autor">Autor:</label>
-        <input id="autor" name="autor" type="text"><br>
+            <label for="Autor">Autor:</label>
+            <input id="autor" name="autor" th:value="${livro?.autor}">
         </div>
 
         <div>
-        <input type="submit">
+            <input type="submit">
         </div>
         <a href="/livros">Meus livros</a>
     </form>

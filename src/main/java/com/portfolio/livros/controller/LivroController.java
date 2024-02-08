@@ -1,18 +1,14 @@
 package com.portfolio.livros.controller;
 
 import com.portfolio.livros.model.livro.DadosCadastraLivro;
+import com.portfolio.livros.model.livro.DadosEditarLivro;
 import com.portfolio.livros.model.livro.Livro;
 import com.portfolio.livros.model.livro.LivroRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("livros")
@@ -22,7 +18,12 @@ public class LivroController {
     private LivroRepository repository;
 
     @GetMapping("formulario")
-    public String carregaFormulario() {
+    public String carregaFormulario(Long id, Model model) {
+        if (id != null) {
+            var livro = repository.getReferenceById(id);
+            model.addAttribute("livro", livro);
+        }
+
         return "livros/formulario";
     }
 
@@ -39,12 +40,22 @@ public class LivroController {
     }
 
     @DeleteMapping
+    @Transactional
     public String deleteLivro(Long id){
-
         repository.deleteById(id);
         System.out.println("excluido");
 
         return "redirect:/livros";
+    }
+
+    @PutMapping
+    @Transactional
+    public String editarLivro(DadosEditarLivro dadosEditarLivro){
+        var livro = repository.getReferenceById(dadosEditarLivro.id());
+        livro.atualizarLivro(dadosEditarLivro);
+
+        return "redirect:/livros";
+
     }
 
 }
