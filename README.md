@@ -168,4 +168,4 @@ Although this is primarily a web application, some controller methods mimic API-
 
 ## **Author**
 
-Developed by [Victor]. Feel free to reach out for questions or contributions!
+Developed by Victor. Feel free to reach out for questions or contributions!
