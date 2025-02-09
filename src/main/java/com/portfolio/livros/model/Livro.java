@@ -1,9 +1,9 @@
-package com.portfolio.livros.model.livro;
+package com.portfolio.livros.model;
 
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "livros")
+@Table(name = "livro")
 
 public class Livro {
 
