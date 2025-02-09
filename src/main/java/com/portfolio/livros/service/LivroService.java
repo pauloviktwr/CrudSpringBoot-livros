@@ -1,12 +1,13 @@
 package com.portfolio.livros.service;
 
-import com.portfolio.livros.model.DadosCadastraLivro;
-import com.portfolio.livros.model.DadosEditarLivro;
+import com.portfolio.livros.dto.DadosCadastraLivro;
+import com.portfolio.livros.dto.DadosEditarLivro;
 import com.portfolio.livros.model.Livro;
-import com.portfolio.livros.model.LivroRepository;
+import com.portfolio.livros.repository.LivroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import jakarta.transaction.Transactional;
+import org.springframework.ui.Model;
 
 import java.util.List;
 
@@ -16,7 +17,15 @@ public class LivroService {
     @Autowired
     private LivroRepository repository;
 
-    public List<Livro> findAll() {
+
+    public void carregaFormulario(Long id, Model model) {
+        if (id != null) {
+            var livro = findById(id);
+            model.addAttribute("livro", livro);
+        }
+    }
+
+    public List<Livro> carregaLivros() {
         return repository.findAll();
     }
 

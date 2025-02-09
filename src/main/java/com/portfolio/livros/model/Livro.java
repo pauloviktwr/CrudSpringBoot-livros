@@ -1,5 +1,7 @@
 package com.portfolio.livros.model;
 
+import com.portfolio.livros.dto.DadosCadastraLivro;
+import com.portfolio.livros.dto.DadosEditarLivro;
 import jakarta.persistence.*;
 
 @Entity
