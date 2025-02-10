@@ -1,7 +1,7 @@
 package com.portfolio.livros.service;
 
-import com.portfolio.livros.dto.DadosCadastraLivro;
-import com.portfolio.livros.dto.DadosEditarLivro;
+import com.portfolio.livros.model.dto.DadosCadastraLivro;
+import com.portfolio.livros.model.dto.DadosEditarLivro;
 import com.portfolio.livros.model.Livro;
 import com.portfolio.livros.repository.LivroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
