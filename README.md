@@ -129,19 +129,18 @@ Although this is primarily a web application, some controller methods mimic API-
 
 #### Tasks and Milestones
 
-1. **Creation of the Service Layer**
-    - Status: ❌ Not Completed  
-    - Activities:
-      - Create `service` package under `com.portfolio.livros`.
-      - Implement `LivroService` to centralize business logic (`save`, `edit`, `delete` methods).
-      - Move data manipulation logic from `LivroController` to `LivroService`.
+### Creation of the Service Layer
+- Status: ✅ Completed on 2023-10-25
+- Activities:
+   - Create `service` package under `com.portfolio.livros`.
+   - Implement `LivroService` to centralize business logic (`save`, `edit`, `delete` methods).
+   - Move data manipulation logic from `LivroController` to `LivroService`.
 
-2. **Separation of Entities and DTOs**
-    - Status: ❌ Not Completed  
-    - Activities:
-      - Create a subpackage `dto` under `model`.
-      - Move `DadosCadastraLivro` and `DadosEditarLivro` to the new package.
-
+### Separation of Entities and DTOs
+- Status: ✅ Completed on 2023-10-25
+- Activities:
+   - Create a subpackage `dto` under `model`.
+   - Move `DadosCadastraLivro` and `DadosEditarLivro` to the new package.
 3. **Review and Improvement of Validations**
     - Status: ❌ Not Completed  
     - Activities:
