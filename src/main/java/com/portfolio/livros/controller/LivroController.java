@@ -1,7 +1,8 @@
 package com.portfolio.livros.controller;
 
-import com.portfolio.livros.model.DadosCadastraLivro;
-import com.portfolio.livros.model.DadosEditarLivro;
+import com.portfolio.livros.model.dto.DadosCadastraLivro;
+import com.portfolio.livros.model.dto.DadosEditarLivro;
+import com.portfolio.livros.model.Livro;
 import com.portfolio.livros.service.LivroService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,22 +19,18 @@ public class LivroController {
 
     @GetMapping("formulario")
     public String carregaFormulario(Long id, Model model) {
-        if (id != null) {
-            var livro = livroService.findById(id);
-            model.addAttribute("livro", livro);
-        }
-
+        livroService.carregaFormulario(id, model);
         return "livros/formulario";
     }
 
     @GetMapping
     public String carregaLivros(Model model) {
-        model.addAttribute("lista", livroService.findAll());
+        model.addAttribute("lista", livroService.carregaLivros());
         return "livros/lista";
     }
-
     @PostMapping
     public String cadastraLivro(DadosCadastraLivro dadosCadastraLivro) {
+        var livro = new Livro(dadosCadastraLivro);
         livroService.save(dadosCadastraLivro);
         return "redirect:/livros";
     }
@@ -50,7 +47,11 @@ public class LivroController {
     @PutMapping
     @Transactional
     public String editarLivro(DadosEditarLivro dadosEditarLivro){
-        livroService.update(dadosEditarLivro);
+        var livro = livroService.update(dadosEditarLivro);
+        livro.atualizarLivro(dadosEditarLivro);
+
         return "redirect:/livros";
+
     }
+
 }

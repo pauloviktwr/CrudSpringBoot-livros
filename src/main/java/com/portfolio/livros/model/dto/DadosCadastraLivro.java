@@ -1,4 +1,4 @@
-package com.portfolio.livros.model;
+package com.portfolio.livros.model.dto;
 
 public record DadosCadastraLivro(String titulo, String autor) {
 }
