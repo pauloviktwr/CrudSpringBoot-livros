@@ -130,22 +130,27 @@ Although this is primarily a web application, some controller methods mimic API-
 #### Tasks and Milestones
 
 ### Creation of the Service Layer
-- Status: ✅ Completed on 2023-10-25
+- Status: ✅ Completed on 2025-02-09
 - Activities:
    - Create `service` package under `com.portfolio.livros`.
    - Implement `LivroService` to centralize business logic (`save`, `edit`, `delete` methods).
    - Move data manipulation logic from `LivroController` to `LivroService`.
 
 ### Separation of Entities and DTOs
-- Status: ✅ Completed on 2023-10-25
+- Status: ✅ Completed on 2025-02-09
 - Activities:
    - Create a subpackage `dto` under `model`.
    - Move `DadosCadastraLivro` and `DadosEditarLivro` to the new package.
+   - Refactor `LivroController` to use DTOs for form data.
+  
 3. **Review and Improvement of Validations**
-    - Status: ❌ Not Completed  
+    - Status: 🟡 In Progress
     - Activities:
-      - Add validations in DTOs using Bean Validation annotations (`@NotBlank`, `@Size`, etc.).
-      - Ensure controller methods validate incoming data using `@Valid`.
+      - Add validations in DTOs using Bean Validation annotations (`@NotBlank`, `@Size`, etc.). ✅ Completed on 2025-02-09
+      - Ensure controller methods validate incoming data using `@Valid`. ✅ Completed on 2025-02-09
+      - Add custom error messages for validation failures. ✅ Completed on 2025-02-09
+      - Test validation by submitting invalid data in the web form. 🟡 In Progress
+      - Update Thymeleaf templates to display validation errors. 🟡In Progress
 
 4. **Organization and Improvement of Views**
     - Status: ❌ Not Completed  
