@@ -5,9 +5,11 @@ import com.portfolio.livros.model.dto.DadosEditarLivro;
 import com.portfolio.livros.model.Livro;
 import com.portfolio.livros.service.LivroService;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -28,8 +30,14 @@ public class LivroController {
         model.addAttribute("lista", livroService.carregaLivros());
         return "livros/lista";
     }
+
+
     @PostMapping
-    public String cadastraLivro(DadosCadastraLivro dadosCadastraLivro) {
+    public String cadastraLivro(@Valid @ModelAttribute DadosCadastraLivro dadosCadastraLivro, BindingResult result) {
+        if (result.hasErrors()) {
+            System.out.println("erro");
+            return "livros/formulario";
+        }
         var livro = new Livro(dadosCadastraLivro);
         livroService.save(dadosCadastraLivro);
         return "redirect:/livros";
@@ -46,12 +54,14 @@ public class LivroController {
 
     @PutMapping
     @Transactional
-    public String editarLivro(DadosEditarLivro dadosEditarLivro){
-        var livro = livroService.update(dadosEditarLivro);
+    public String editarLivro(@Valid @ModelAttribute DadosEditarLivro dadosEditarLivro, BindingResult result){
+        if (result.hasErrors()) {
+            System.out.println("erro");
+            return "livros/formulario";
+        }
+        Livro livro = livroService.update(dadosEditarLivro);
         livro.atualizarLivro(dadosEditarLivro);
 
         return "redirect:/livros";
-
     }
-
 }
