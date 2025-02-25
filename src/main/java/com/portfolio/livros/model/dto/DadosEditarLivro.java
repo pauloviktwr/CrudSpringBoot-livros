@@ -1,4 +1,8 @@
 package com.portfolio.livros.model.dto;
 
-public record DadosEditarLivro(Long id, String titulo, String autor) {
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
+public record DadosEditarLivro(Long id, @NotBlank(message = "Titulo obrigatorio") @Size(min = 2, max = 100) String titulo,
+                               @NotBlank(message = "Autor obrigatorio") @Size(min = 2, max = 100) String autor) {
 }
