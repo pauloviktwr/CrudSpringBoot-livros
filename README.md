@@ -136,6 +136,6 @@ Abaixo estão listadas as atividades planejadas para consolidar a qualidade de s
 
 - Atualizar as telas em Thymeleaf para exibir as mensagens de erro customizadas interceptadas pelo framework no processo de validação.
 
-## **Author**
+## **Autor**
 
 Desenvolvido por Paulo Victor. Sinta-se à vontade para entrar em contato para dúvidas ou contribuições!
