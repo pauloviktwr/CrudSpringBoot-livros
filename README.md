@@ -13,7 +13,11 @@
 
 ## **Descrição**
 
-O **Livros Web Application** é uma aplicação desenvolvida com Spring Boot projetada para o gerenciamento de acervos literários. O sistema renderiza interfaces dinâmicas no servidor utilizando Thymeleaf para interação do usuário, suportando o ciclo completo de operações CRUD (Create, Read, Update, Delete). O projeto adota uma arquitetura em camadas clara, garantindo a separação de responsabilidades e persistência em banco de dados relacional.
+O **Livros Web Application** é uma aplicação desenvolvida com Spring Boot projetada para o gerenciamento de acervos literários. O sistema renderiza interfaces dinâmicas no servidor utilizando Thymeleaf para interação do usuário, suportando o ciclo completo de operações CRUD (Create, Read, Update, Delete). 
+
+O projeto adota uma arquitetura em camadas clara, garantindo a separação de responsabilidades e a persistência em banco de dados relacional.
+
+Além disso, conta com uma suíte robusta de **Testes Unitários da Camada Service**, garantindo a cobertura de 100% da lógica de negócio utilizando **JUnit 5** e **Mockito**, validando caminhos felizes, lançamento de exceções e controle estrito de interações com o banco (como proteção contra consultas redundantes usando `never()`).
 
 ---
 
