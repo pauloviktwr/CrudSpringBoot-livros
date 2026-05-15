@@ -99,7 +99,6 @@ src/
 | DELETE      | /livros        | Remove um livro do catálogo com base no ID informado.          |
 
 ---
-Fases Concluídas
 
 ## **Linha do Tempo e Evolução do Projeto**
 
