@@ -105,8 +105,11 @@ src/
 ### Fases Concluídas
 
 Arquitetura em Camadas (Service Layer): Implementação do LivroService, desacoplando completamente a lógica de persistência e validações do LivroController.
+
 Refatoração de Segurança (DTOs): Criação de pacotes específicos de DTO utilizando Java Records para blindar a entrada de dados.
+
 Testes Unitários da Camada Service: Cobertura de 100% da lógica de negócio do LivroService usando JUnit 5 e Mockito, validando caminhos felizes, lançamento de exceções custodiadas e controle de interações via verify().
+
 
 #### 🎯 Próximas Tarefas e Roadmap de Testes
 
