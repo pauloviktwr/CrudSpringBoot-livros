@@ -115,21 +115,23 @@ Testes Unitários da Camada Service: Cobertura de 100% da lógica de negócio do
 
 Abaixo estão listadas as atividades planejadas para consolidar a qualidade de software do projeto nas próximas etapas de desenvolvimento:
 1. **Testes de Integração (Camada de Dados)**
-```
-[ ] Configurar um ambiente de banco de dados em memória isolado utilizando H2 Database em src/test/resources/application-test.properties.
-[ ] Implementar testes de integração focados no LivroRepository.
-[ ] Validar o ciclo de vida do Hibernate, restrições de integridade, anotações de mapeamento (@Column, @Table) e geração automática de IDs.
-```
+
+- Configurar um ambiente de banco de dados em memória isolado utilizando H2 Database em src/test/resources/application-test.properties.
+
+- Implementar testes de integração focados no LivroRepository.
+
+- Validar o ciclo de vida do Hibernate, restrições de integridade, anotações de mapeamento (@Column, @Table) e geração automática de IDs.
+
 2. **Testes de Controladores (Camada Web/HTTP)**
-```
-[ ] Implementar testes de componentes utilizando @WebMvcTest e MockMvc.
-[ ] Validar as respostas de requisições HTTP (Status 200 OK, 302 Redirect, 404 Not Found).
-[ ] Testar as restrições do Bean Validation simulando o envio de DTOs inválidos nos payloads e verificando se os erros retornam corretamente para a View.
-```
+
+- Implementar testes de componentes utilizando @WebMvcTest e MockMvc.
+- Validar as respostas de requisições HTTP (Status 200 OK, 302 Redirect, 404 Not Found).
+- Testar as restrições do Bean Validation simulando o envio de DTOs inválidos nos payloads e verificando se os erros retornam corretamente para a View.
+
 3. **Ajustes de Interface (View)**
-```
-[ ] Atualizar as telas em Thymeleaf para exibir as mensagens de erro customizadas interceptadas pelo framework no processo de validação.
-```
+
+- Atualizar as telas em Thymeleaf para exibir as mensagens de erro customizadas interceptadas pelo framework no processo de validação.
+
 ## **Author**
 
 Desenvolvido por Paulo Victor. Sinta-se à vontade para entrar em contato para dúvidas ou contribuições!
