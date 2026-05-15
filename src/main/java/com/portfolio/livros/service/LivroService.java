@@ -5,9 +5,11 @@ import com.portfolio.livros.model.dto.DadosEditarLivro;
 import com.portfolio.livros.model.Livro;
 import com.portfolio.livros.repository.LivroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import jakarta.transaction.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -22,7 +24,12 @@ public class LivroService {
         if (id != null) {
             var livro = findById(id);
             model.addAttribute("livro", livro);
+        } else {
+            // Garante que o formulário de cadastro tenha um objeto vazio para preencher
+            model.addAttribute("livro", new Livro());
+
         }
+
     }
 
     public List<Livro> carregaLivros() {
@@ -30,7 +37,9 @@ public class LivroService {
     }
 
     public Livro findById(Long id) {
-        return repository.getReferenceById(id);
+        return repository.findById(id)
+            .orElseThrow(() -> new ResponseStatusException(
+                HttpStatus.NOT_FOUND, "Livro não encontrado: " + id));
     }
 
     @Transactional
@@ -48,6 +57,6 @@ public class LivroService {
     public Livro update(DadosEditarLivro dadosEditarLivro) {
         var livro = repository.getReferenceById(dadosEditarLivro.id());
         livro.atualizarLivro(dadosEditarLivro);
-        return livro;
+        return repository.save(livro);
     }
 }

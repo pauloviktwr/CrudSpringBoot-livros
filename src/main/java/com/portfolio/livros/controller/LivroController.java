@@ -38,7 +38,6 @@ public class LivroController {
             System.out.println("erro");
             return "livros/formulario";
         }
-        var livro = new Livro(dadosCadastraLivro);
         livroService.save(dadosCadastraLivro);
         return "redirect:/livros";
     }

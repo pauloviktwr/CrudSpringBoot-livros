@@ -19,6 +19,10 @@ public class Livro {
         return id;
     }
 
+    public void setId(Long id) {
+    this.id = id;
+    }
+
     public Livro() {
     }
 
