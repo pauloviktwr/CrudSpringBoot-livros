@@ -58,8 +58,7 @@ public class LivroController {
             System.out.println("erro");
             return "livros/formulario";
         }
-        Livro livro = livroService.update(dadosEditarLivro);
-        livro.atualizarLivro(dadosEditarLivro);
+        livroService.update(dadosEditarLivro);
 
         return "redirect:/livros";
     }
