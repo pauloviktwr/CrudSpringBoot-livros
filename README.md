@@ -31,6 +31,7 @@ Além disso, conta com uma suíte robusta de **Testes Unitários da Camada Servi
 | **Maven** | Gerenciador de dependências e automação do build do projeto. |
 | **Thymeleaf** | Motor de templates para renderização dinâmica de páginas HTML no servidor. |
 | **Hibernate (JPA)** | Framework de ORM para mapeamento de entidades e comunicação abstrata com o banco. |
+| **SpringDoc OpenAPI** | Documentação automática da API REST e interface Swagger UI. |
 
 ---
 
@@ -62,6 +63,20 @@ mvn spring-boot:run
 4. **Acesse o sistema no navegador:**
 
 Interface Web: http://localhost:8080/livros
+
+Interface Swagger UI: http://localhost:8080/swagger-ui/index.html
+
+Para habilitar a documentação OpenAPI/Swagger localmente usando um profile dedicado, execute a aplicação com o profile `openapi`:
+
+```
+mvn spring-boot:run -Dspring-boot.run.profiles=openapi
+```
+
+Ou usando o Maven wrapper (Windows):
+
+```
+.\mvnw.cmd spring-boot:run -Dspring-boot.run.profiles=openapi
+```
 
 ### **Funcionalidades**
 
@@ -101,6 +116,11 @@ src/
 | POST        | /livros        | Processa o envio dos dados para salvar um novo livro.               |
 | PUT         | /livros        | Processa a atualização de um livro existente.      |
 | DELETE      | /livros        | Remove um livro do catálogo com base no ID informado.          |
+| GET         | /api/livros    | Retorna todos os livros em formato JSON. |
+| GET         | /api/livros/{id} | Retorna um livro pelo ID em formato JSON. |
+| POST        | /api/livros    | Cria um novo livro a partir do payload JSON. |
+| PUT         | /api/livros/{id} | Atualiza um livro existente com payload JSON. |
+| DELETE      | /api/livros/{id} | Deleta um livro pelo ID via API REST. |
 
 ---
 
