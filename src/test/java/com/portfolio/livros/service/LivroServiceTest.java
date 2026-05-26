@@ -14,7 +14,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.ui.Model;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -31,9 +30,6 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 @DisplayName("Testes Unitários - LivroService (CRUD Completo)")
 class LivroServiceTest {
-
-    @Mock
-    private Model model;
 
     @Mock
     private LivroRepository repository;
@@ -155,19 +151,4 @@ class LivroServiceTest {
         // Assert
         verify(repository, times(1)).deleteById(id);
     }
-
-// === CENÁRIOS DE ERRO/EDGE ===
-@Test
-@DisplayName("carregaFormulario sem ID não deve interagir com o banco")
-void carregaFormulario_SemId() {
-    // Act
-    service.carregaFormulario(null, model);
-
-    // Assert
-    // Como seu service atual não adiciona nada ao model se o ID for null:
-    verify(model, never()).addAttribute(anyString(), any());
-    
-    // Garante que o banco de dados NUNCA foi consultado
-    verify(repository, never()).findById(anyLong());
-}
 }

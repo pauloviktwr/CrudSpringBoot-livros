@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import jakarta.transaction.Transactional;
-import org.springframework.ui.Model;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -18,19 +17,6 @@ public class LivroService {
 
     @Autowired
     private LivroRepository repository;
-
-
-    public void carregaFormulario(Long id, Model model) {
-        if (id != null) {
-            var livro = findById(id);
-            model.addAttribute("livro", livro);
-        } else {
-            // Garante que o formulário de cadastro tenha um objeto vazio para preencher
-            model.addAttribute("livro", new Livro());
-
-        }
-
-    }
 
     public List<Livro> carregaLivros() {
         return repository.findAll();
