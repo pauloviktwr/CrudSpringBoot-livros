@@ -3,6 +3,7 @@ package com.portfolio.livros.controller;
 import com.portfolio.livros.model.Livro;
 import com.portfolio.livros.model.dto.DadosCadastraLivro;
 import com.portfolio.livros.model.dto.DadosEditarLivro;
+import com.portfolio.livros.model.dto.DadosLivroResposta;
 import com.portfolio.livros.service.LivroService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +21,20 @@ public class LivroRestController {
     private LivroService livroService;
 
     @GetMapping
-    public ResponseEntity<List<Livro>> listarTodos() {
-        return ResponseEntity.ok(livroService.carregaLivros());
+    public ResponseEntity<List<DadosLivroResposta>> listarTodos() {
+        List<DadosLivroResposta> resposta = livroService.carregaLivros().stream()
+                .map(livro -> new DadosLivroResposta(livro.getId(), livro.getTitulo(), livro.getAutor()))
+                .toList();
+        return ResponseEntity.ok(resposta);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Livro> buscarPorId(@PathVariable Long id) {
-        return ResponseEntity.ok(livroService.findById(id));
+    public ResponseEntity<DadosLivroResposta> buscarPorId(@PathVariable Long id) {
+        Livro livro = livroService.findById(id);
+
+        // Mapeia a Entidade para o DTO de Resposta
+        DadosLivroResposta resposta = new DadosLivroResposta(livro.getId(), livro.getTitulo(), livro.getAutor());
+        return ResponseEntity.ok(resposta);
     }
 
     @PostMapping
