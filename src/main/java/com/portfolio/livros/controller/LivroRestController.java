@@ -38,19 +38,21 @@ public class LivroRestController {
     }
 
     @PostMapping
-    public ResponseEntity<Livro> criar(@Valid @RequestBody DadosCadastraLivro dadosCadastraLivro) {
+    public ResponseEntity<DadosLivroResposta> criar(@Valid @RequestBody DadosCadastraLivro dadosCadastraLivro) {
         Livro livroSalvo = livroService.save(dadosCadastraLivro);
-        return ResponseEntity.status(HttpStatus.CREATED).body(livroSalvo);
+        DadosLivroResposta resposta = new DadosLivroResposta(livroSalvo.getId(), livroSalvo.getTitulo(), livroSalvo.getAutor());
+        return ResponseEntity.status(HttpStatus.CREATED).body(resposta);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Livro> atualizar(@PathVariable Long id,
+    public ResponseEntity<DadosLivroResposta> atualizar(@PathVariable Long id,
                                            @Valid @RequestBody DadosEditarLivro dadosEditarLivro) {
         if (!id.equals(dadosEditarLivro.id())) {
             return ResponseEntity.badRequest().build();
         }
         Livro livroAtualizado = livroService.update(dadosEditarLivro);
-        return ResponseEntity.ok(livroAtualizado);
+        DadosLivroResposta resposta = new DadosLivroResposta(livroAtualizado.getId(), livroAtualizado.getTitulo(), livroAtualizado.getAutor());
+        return ResponseEntity.ok(resposta);
     }
 
     @DeleteMapping("/{id}")

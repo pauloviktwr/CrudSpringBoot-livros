@@ -14,6 +14,8 @@ public class Livro {
     private Long id;
     private String titulo;
     private String autor;
+    @Transient
+    private String temp;
 
     public Long getId() {
         return id;

@@ -46,7 +46,8 @@ class LivroRestControllerTest {
 
         mockMvc.perform(get("/api/livros"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].titulo").value("Spring Boot em Ação"));
+                .andExpect(jsonPath("$[0].titulo").value("Spring Boot em Ação"))
+                .andExpect(jsonPath("$[0].temp").doesNotExist());
     }
 
     @Test
@@ -57,7 +58,8 @@ class LivroRestControllerTest {
 
         mockMvc.perform(get("/api/livros/1"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.titulo").value("Spring Boot em Ação"));
+                .andExpect(jsonPath("$.titulo").value("Spring Boot em Ação"))
+                .andExpect(jsonPath("$.temp").doesNotExist());
     }
 
     @Test

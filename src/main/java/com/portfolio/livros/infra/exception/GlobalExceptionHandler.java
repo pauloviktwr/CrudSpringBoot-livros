@@ -1,5 +1,6 @@
 package com.portfolio.livros.infra.exception;
 
+import com.portfolio.livros.infra.exception.DadosErroResposta;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -22,14 +23,14 @@ public class GlobalExceptionHandler {
 
     // 1. Captura erros de validação do @Valid (ex: título ou autor em branco nos DTOs)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<DadosErroPadrao> handleValidationError(MethodArgumentNotValidException ex, HttpServletRequest request) {
-        List<DadosErroPadrao.DadosFieldError> errors = ex.getBindingResult()
+    public ResponseEntity<DadosErroResposta> handleValidationError(MethodArgumentNotValidException ex, HttpServletRequest request) {
+        List<DadosErroResposta.DadosFieldError> errors = ex.getBindingResult()
                 .getFieldErrors()
                 .stream()
-                .map(error -> new DadosErroPadrao.DadosFieldError(error.getField(), error.getDefaultMessage()))
+                .map(error -> new DadosErroResposta.DadosFieldError(error.getField(), error.getDefaultMessage()))
                 .toList();
 
-        DadosErroPadrao erro = new DadosErroPadrao(
+        DadosErroResposta erro = new DadosErroResposta(
                 LocalDateTime.now(),
                 HttpStatus.BAD_REQUEST.value(),
                 "Erro de Validação",
@@ -43,8 +44,8 @@ public class GlobalExceptionHandler {
 
     // 2. Captura o ResponseStatusException (presente no findById do Service)
     @ExceptionHandler(ResponseStatusException.class)
-    public ResponseEntity<DadosErroPadrao> handleResponseStatus(ResponseStatusException ex, HttpServletRequest request) {
-        DadosErroPadrao erro = new DadosErroPadrao(
+    public ResponseEntity<DadosErroResposta> handleResponseStatus(ResponseStatusException ex, HttpServletRequest request) {
+        DadosErroResposta erro = new DadosErroResposta(
                 LocalDateTime.now(),
                 ex.getStatusCode().value(),
                 "Erro na Requisição",
@@ -58,8 +59,8 @@ public class GlobalExceptionHandler {
 
     // 3. Captura EntityNotFoundException (do JPA / getReferenceById presente no update do Service)
     @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<DadosErroPadrao> handleEntityNotFound(EntityNotFoundException ex, HttpServletRequest request) {
-        DadosErroPadrao erro = new DadosErroPadrao(
+    public ResponseEntity<DadosErroResposta> handleEntityNotFound(EntityNotFoundException ex, HttpServletRequest request) {
+        DadosErroResposta erro = new DadosErroResposta(
                 LocalDateTime.now(),
                 HttpStatus.NOT_FOUND.value(),
                 "Recurso Não Encontrado",
@@ -73,7 +74,7 @@ public class GlobalExceptionHandler {
 
     // 4. Captura violações de constraint de integridade (ex: título duplicado, unique constraint)
     @ExceptionHandler(DataIntegrityViolationException.class)
-    public ResponseEntity<DadosErroPadrao> handleDataIntegrityViolation(DataIntegrityViolationException ex, HttpServletRequest request) {
+    public ResponseEntity<DadosErroResposta> handleDataIntegrityViolation(DataIntegrityViolationException ex, HttpServletRequest request) {
         String message = "Falha ao processar a operação devido a conflito de dados.";
         
         // Verificar se é erro de unique constraint
@@ -86,7 +87,7 @@ public class GlobalExceptionHandler {
         
         logger.warn("Violação de integridade de dados: {}", ex.getMessage());
         
-        DadosErroPadrao erro = new DadosErroPadrao(
+        DadosErroResposta erro = new DadosErroResposta(
                 LocalDateTime.now(),
                 HttpStatus.CONFLICT.value(),
                 "Conflito de Dados",
@@ -100,10 +101,10 @@ public class GlobalExceptionHandler {
 
     // 5. Captura qualquer outra exceção inesperada (Erro 500 global)
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<DadosErroPadrao> handleCatchAll(Exception ex, HttpServletRequest request) {
+    public ResponseEntity<DadosErroResposta> handleCatchAll(Exception ex, HttpServletRequest request) {
         logger.error("Erro não esperado no servidor: {} - {}", ex.getClass().getSimpleName(), ex.getMessage(), ex);
         
-        DadosErroPadrao erro = new DadosErroPadrao(
+        DadosErroResposta erro = new DadosErroResposta(
                 LocalDateTime.now(),
                 HttpStatus.INTERNAL_SERVER_ERROR.value(),
                 "Erro Interno do Servidor",
