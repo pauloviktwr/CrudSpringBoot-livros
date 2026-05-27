@@ -1,5 +1,16 @@
 # Livros Web Application
 
+![Java](https://img.shields.io/badge/Java-17+-orange?logo=java&logoColor=white)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.0+-green?logo=springboot&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-8.0+-blue?logo=mysql&logoColor=white)
+![Maven](https://img.shields.io/badge/Maven-3.6+-red?logo=apachemaven&logoColor=white)
+![Thymeleaf](https://img.shields.io/badge/Thymeleaf-3.0+-brightgreen?logo=thymeleaf&logoColor=white)
+![Hibernate](https://img.shields.io/badge/Hibernate-ORM-yellow?logo=hibernate&logoColor=white)
+
+![Vídeo descritivo do sistema](https://github.com/pauloviktwr/CrudSpringBoot-livros/assets/127359543/df975e71-b652-4c05-ad39-d5473330b22d)
+
+---
+
 Aplicação de gerenciamento de livros desenvolvida com **Spring Boot**, **Spring Data JPA** e **Thymeleaf**.
 
 ## Objetivo
