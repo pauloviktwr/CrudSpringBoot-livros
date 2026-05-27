@@ -2,18 +2,23 @@ package com.portfolio.livros.infra.exception;
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.server.ResponseStatusException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
+    private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     // 1. Captura erros de validação do @Valid (ex: título ou autor em branco nos DTOs)
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -66,9 +71,38 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erro);
     }
 
-    // 4. Captura qualquer outra exceção inesperada (Erro 500 global)
+    // 4. Captura violações de constraint de integridade (ex: título duplicado, unique constraint)
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<DadosErroPadrao> handleDataIntegrityViolation(DataIntegrityViolationException ex, HttpServletRequest request) {
+        String message = "Falha ao processar a operação devido a conflito de dados.";
+        
+        // Verificar se é erro de unique constraint
+        if (ex.getCause() != null && ex.getCause().getMessage() != null) {
+            if (ex.getCause().getMessage().contains("Duplicate entry") || 
+                ex.getCause().getMessage().contains("duplicate key")) {
+                message = "Falha: Um registro com esses dados já existe no sistema.";
+            }
+        }
+        
+        logger.warn("Violação de integridade de dados: {}", ex.getMessage());
+        
+        DadosErroPadrao erro = new DadosErroPadrao(
+                LocalDateTime.now(),
+                HttpStatus.CONFLICT.value(),
+                "Conflito de Dados",
+                message,
+                request.getRequestURI(),
+                null
+        );
+
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(erro);
+    }
+
+    // 5. Captura qualquer outra exceção inesperada (Erro 500 global)
     @ExceptionHandler(Exception.class)
     public ResponseEntity<DadosErroPadrao> handleCatchAll(Exception ex, HttpServletRequest request) {
+        logger.error("Erro não esperado no servidor: {} - {}", ex.getClass().getSimpleName(), ex.getMessage(), ex);
+        
         DadosErroPadrao erro = new DadosErroPadrao(
                 LocalDateTime.now(),
                 HttpStatus.INTERNAL_SERVER_ERROR.value(),
@@ -77,9 +111,6 @@ public class GlobalExceptionHandler {
                 request.getRequestURI(),
                 null
         );
-
-        // Aqui vale a pena logar a exception original para você debugar depois
-        // logger.error("Erro não esperado: ", ex);
 
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(erro);
     }
