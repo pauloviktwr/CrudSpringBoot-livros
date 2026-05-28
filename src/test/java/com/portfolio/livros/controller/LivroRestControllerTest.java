@@ -24,6 +24,10 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(LivroRestController.class)
 @DisplayName("Testes REST - LivroRestController")
@@ -38,16 +42,26 @@ class LivroRestControllerTest {
     @MockBean
     private LivroService livroService;
 
-    @Test
-    @DisplayName("GET /api/livros deve retornar lista de livros")
+@Test
+    @DisplayName("GET /api/livros deve retornar página de livros estruturada")
     void listarTodos_RetornaOk() throws Exception {
+        // --- ARRANGE ---
         Livro livro = new Livro(new DadosCadastraLivro("Spring Boot em Ação", "Craig Walls"));
-        when(livroService.carregaLivros()).thenReturn(List.of(livro));
+        Page<Livro> paginaMock = new PageImpl<>(List.of(livro));
 
-        mockMvc.perform(get("/api/livros"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].titulo").value("Spring Boot em Ação"))
-                .andExpect(jsonPath("$[0].temp").doesNotExist());
+        when(livroService.carregaLivros(any(Pageable.class))).thenReturn(paginaMock);
+
+        // --- ACT) ---
+        var resultado = mockMvc.perform(get("/api/livros")
+                .param("page", "0")
+                .param("size", "10")
+                .contentType(MediaType.APPLICATION_JSON));
+
+        // --- ASSERT ---
+        resultado.andExpect(status().isOk())
+                 .andExpect(jsonPath("$.content").isArray())
+                 .andExpect(jsonPath("$.content[0].titulo").value("Spring Boot em Ação"))
+                 .andExpect(jsonPath("$.totalElements").value(1));
     }
 
     @Test

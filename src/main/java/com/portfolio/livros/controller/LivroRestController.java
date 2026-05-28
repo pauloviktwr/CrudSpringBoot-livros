@@ -7,6 +7,9 @@ import com.portfolio.livros.model.dto.DadosLivroResposta;
 import com.portfolio.livros.service.LivroService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,10 +24,9 @@ public class LivroRestController {
     private LivroService livroService;
 
     @GetMapping
-    public ResponseEntity<List<DadosLivroResposta>> listarTodos() {
-        List<DadosLivroResposta> resposta = livroService.carregaLivros().stream()
-                .map(livro -> new DadosLivroResposta(livro.getId(), livro.getTitulo(), livro.getAutor()))
-                .toList();
+    public ResponseEntity<Page<DadosLivroResposta>> listarTodos(@PageableDefault(size = 10, sort = "titulo") Pageable paginação) {
+        Page<DadosLivroResposta> resposta = livroService.carregaLivros(paginação)
+                .map(livro -> new DadosLivroResposta(livro.getId(), livro.getTitulo(), livro.getAutor()));
         return ResponseEntity.ok(resposta);
     }
 

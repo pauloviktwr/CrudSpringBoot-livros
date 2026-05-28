@@ -8,6 +8,9 @@ import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -35,8 +38,13 @@ public class LivroController {
     }
 
     @GetMapping
-    public String carregaLivros(Model model) {
-        model.addAttribute("lista", livroService.carregaLivros());
+    public String carregaLivros(Model model, @PageableDefault(size = 10, sort = "titulo") Pageable paginação) {
+
+        Page<Livro> pagina = livroService.carregaLivros(paginação);
+        
+        model.addAttribute("lista", pagina.getContent());
+        model.addAttribute("paginaAtual", pagina.getNumber());
+        model.addAttribute("totalPaginas", pagina.getTotalPages());
         return "livros/lista";
     }
 

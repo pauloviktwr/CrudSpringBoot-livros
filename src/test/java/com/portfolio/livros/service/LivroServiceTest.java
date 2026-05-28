@@ -14,6 +14,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -72,15 +76,22 @@ class LivroServiceTest {
     @DisplayName("Deve carregar lista de livros")
     void carregaLivros_RetornaLista() {
         // Arrange
-        List<Livro> livrosMock = List.of(livroExistente);
-        when(repository.findAll()).thenReturn(livrosMock);
+        Pageable paginacao = PageRequest.of(0, 10);
+        List<Livro> listaLivrosMock = List.of(livroExistente);
+        Page<Livro> paginaMock = new PageImpl<>(listaLivrosMock, paginacao, listaLivrosMock.size());
+        
+        // Configura o mock para aceitar qualquer Pageable e retornar a página mockada
+        when(repository.findAll(any(Pageable.class))).thenReturn(paginaMock);
 
         // Act
-        List<Livro> resultado = service.carregaLivros();
+        Page<Livro> resultado = service.carregaLivros(paginacao);
 
         // Assert
-        assertThat(resultado).hasSize(1);
-        verify(repository, times(1)).findAll();
+
+        assertThat(resultado).isNotNull();
+        assertThat(resultado.getContent()).hasSize(1);
+        assertThat(resultado.getTotalElements()).isEqualTo(1);
+        verify(repository, times(1)).findAll(paginacao);
     }
 
     @Test
