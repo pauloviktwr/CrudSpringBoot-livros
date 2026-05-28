@@ -12,8 +12,6 @@ import org.springframework.stereotype.Service;
 import jakarta.transaction.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.List;
-
 @Service
 public class LivroService {
 
@@ -42,9 +40,10 @@ public class LivroService {
     }
 
     @Transactional
-    public Livro update(DadosEditarLivro dadosEditarLivro) {
-        var livro = repository.getReferenceById(dadosEditarLivro.id());
-        livro.atualizarLivro(dadosEditarLivro);
-        return repository.save(livro);
-    }
+public Livro update(DadosEditarLivro dadosEditarLivro) {
+    // Usa o findById que já lança 404 caso não encontre
+    var livro = this.findById(dadosEditarLivro.id()); 
+    livro.atualizarLivro(dadosEditarLivro);
+    return repository.save(livro);
+}
 }

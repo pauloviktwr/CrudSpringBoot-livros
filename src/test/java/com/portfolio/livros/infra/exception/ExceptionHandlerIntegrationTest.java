@@ -3,6 +3,7 @@ package com.portfolio.livros.infra.exception;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.portfolio.livros.model.Livro;
 import com.portfolio.livros.model.dto.DadosCadastraLivro;
+import com.portfolio.livros.model.dto.DadosEditarLivro;
 import com.portfolio.livros.repository.LivroRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -105,12 +106,14 @@ class ExceptionHandlerIntegrationTest {
     @Test
     @DisplayName("PUT com ID inexistente (404) deve retornar erro padronizado")
     void putInexistente_Retorna404() throws Exception {
-        DadosCadastraLivro payload = new DadosCadastraLivro("Updated Title", "Updated Author");
+        // Envia o DTO correto (DadosEditarLivro) com o mesmo ID da URL
+        DadosEditarLivro payload = new DadosEditarLivro(99999L, "Updated Title", "Updated Author");
 
         mockMvc.perform(put("/api/livros/99999")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(payload)))
-            .andExpect(status().is4xxClientError())
-            .andExpect(jsonPath("$.status").isNumber());
+            .andExpect(status().isNotFound()) // Espera 404, já que o ID coincide mas não existe no banco
+            .andExpect(jsonPath("$.status").value(404))
+            .andExpect(jsonPath("$.error").exists());
     }
 }

@@ -1,12 +1,12 @@
 package com.portfolio.livros.infra.exception;
 
-import com.portfolio.livros.infra.exception.DadosErroResposta;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.server.ResponseStatusException;
@@ -99,7 +99,26 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(erro);
     }
 
-    // 5. Captura qualquer outra exceção inesperada (Erro 500 global)
+    // 5. Captura payloads inválidos (JSON malformado) e retorna 400
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<DadosErroResposta> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpServletRequest request) {
+        logger.warn("JSON inválido na requisição: {}", ex.getMessage());
+
+        String detail = ex.getMostSpecificCause() != null ? ex.getMostSpecificCause().getMessage() : "Corpo da requisição inválido.";
+
+        DadosErroResposta erro = new DadosErroResposta(
+                LocalDateTime.now(),
+                HttpStatus.BAD_REQUEST.value(),
+                "Requisição Inválida",
+                detail,
+                request.getRequestURI(),
+                null
+        );
+
+        return ResponseEntity.badRequest().body(erro);
+    }
+
+    // 6. Captura qualquer outra exceção inesperada (Erro 500 global)
     @ExceptionHandler(Exception.class)
     public ResponseEntity<DadosErroResposta> handleCatchAll(Exception ex, HttpServletRequest request) {
         logger.error("Erro não esperado no servidor: {} - {}", ex.getClass().getSimpleName(), ex.getMessage(), ex);

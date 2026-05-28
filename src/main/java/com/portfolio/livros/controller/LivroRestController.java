@@ -14,8 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/api/livros")
 public class LivroRestController {
@@ -59,6 +57,7 @@ public class LivroRestController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> excluir(@PathVariable Long id) {
+        livroService.findById(id);  // Valida existência - lança 404 se não encontrar
         livroService.deleteById(id);
         return ResponseEntity.noContent().build();
     }

@@ -112,4 +112,46 @@ class LivroRestControllerTest {
         mockMvc.perform(delete("/api/livros/1"))
                 .andExpect(status().isNoContent());
     }
+
+    @Test
+    @DisplayName("GET /api/livros/{id} deve retornar 404 se o livro não existir")
+    void buscarPorId_Inexistente_RetornaNotFound() throws Exception {
+        // Configura o Mock para simular o comportamento de não encontrado lançado pelo seu Service
+        when(livroService.findById(99999L)).thenThrow(
+            new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.NOT_FOUND, "Livro não encontrado")
+        );
+
+        mockMvc.perform(get("/api/livros/99999"))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.status").value(404));
+    }
+
+    @Test
+    @DisplayName("PUT /api/livros/{id} deve retornar 404 ao tentar atualizar livro inexistente")
+    void atualizar_Inexistente_RetornaNotFound() throws Exception {
+        DadosEditarLivro payload = new DadosEditarLivro(99999L, "Título Inexistente", "Autor");
+        
+        // Configura o Mock para simular falha no update
+        when(livroService.update(any(DadosEditarLivro.class))).thenThrow(
+            new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.NOT_FOUND, "Livro não encontrado")
+        );
+
+        mockMvc.perform(put("/api/livros/99999")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(payload)))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.status").value(404));
+    }
+
+    @Test
+    @DisplayName("DELETE /api/livros/{id} deve retornar 404 se deletar ID inexistente")
+    void excluir_Inexistente_RetornaNotFound() throws Exception {
+        // Como o seu RestController faz o findById antes do delete, simulamos o erro no findById
+        when(livroService.findById(99999L)).thenThrow(
+            new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.NOT_FOUND, "Livro não encontrado")
+        );
+
+        mockMvc.perform(delete("/api/livros/99999"))
+                .andExpect(status().isNotFound());
+    }
 }
