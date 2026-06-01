@@ -125,7 +125,7 @@ class LivroServiceTest {
     @DisplayName("Deve atualizar dados do livro com sucesso")
     void update_Sucesso() {
         // Arrange
-        when(repository.getReferenceById(dadosEditar.id())).thenReturn(livroExistente);
+        when(repository.findById(dadosEditar.id())).thenReturn(Optional.of(livroExistente));
         when(repository.save(any(Livro.class))).thenReturn(livroExistente);
 
         // Act
@@ -141,11 +141,12 @@ class LivroServiceTest {
     @DisplayName("Deve falhar ao atualizar livro inexistente")
     void update_NaoExiste() {
         // Arrange
-        when(repository.getReferenceById(anyLong())).thenThrow(new EntityNotFoundException());
+        when(repository.findById(dadosEditar.id())).thenReturn(Optional.empty());
 
         // Act & Assert
         assertThatThrownBy(() -> service.update(dadosEditar))
-            .isInstanceOf(EntityNotFoundException.class);
+            .isInstanceOf(ResponseStatusException.class)
+            .hasMessageContaining("Livro não encontrado");
     }
 
     // === DELETE ===
