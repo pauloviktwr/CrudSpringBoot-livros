@@ -1,7 +1,6 @@
 package com.portfolio.livros.infra.exception;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.portfolio.livros.model.Livro;
 import com.portfolio.livros.model.dto.DadosCadastraLivro;
 import com.portfolio.livros.model.dto.DadosEditarLivro;
 import com.portfolio.livros.repository.LivroRepository;
