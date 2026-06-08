@@ -29,6 +29,7 @@ Demonstrar competências de desenvolvedor Java em:
 - Tratamento global de exceções
 - Observabilidade (Actuator + Micrometer)
 - Mensageria (RabbitMQ / Kafka)
+- Microserviços / arquitetura distribuída como evolução natural do projeto
 - Containerização (Docker) e receitas para CI/CD (GitHub Actions)
 
 ---
@@ -36,6 +37,7 @@ Demonstrar competências de desenvolvedor Java em:
 ## 1) Arquitetura e Padrões (resumo)
 - Camadas: `Controller` → `Service` → `Repository` (Spring Boot + Spring Data JPA)
 - DTOs para entrada; entidades limitadas à persistência
+- Design alinhado a princípios de microserviços: APIs REST desacopladas, domínio encapsulado e integração por mensageria
 - Tratamento de exceções centralizado com `@RestControllerAdvice` e `ResponseStatusException`
 - Transações declarativas com `@Transactional`
 - MVC: camada de apresentação implementada seguindo o padrão MVC (Controllers + Views/Thymeleaf)
@@ -79,7 +81,12 @@ mvn test
 ```
 ---
 
-## 4) Suíte de Testes
+## 4) Microserviços e Evolução Distribuída
+- Projeto construído com APIs REST bem definidas e separação de camadas que facilita a futura decomposição em microsserviços.
+- A integração via mensageria (RabbitMQ / Kafka) e a observabilidade com Actuator/Micrometer são pilares para um ambiente distribuído confiável.
+- Próximo passo: extrair o módulo de livros em um serviço independente e manter a comunicação entre serviços por eventos e APIs HTTP.
+
+## 5) Suíte de Testes
 - Frameworks: JUnit 5, Mockito, AssertJ
 - Arquivos principais:
 	- `src/test/java/com/portfolio/livros/service/LivroServiceTest.java`
@@ -89,5 +96,31 @@ mvn test
 ```bash
 mvn test
 ```
+
+## 📊 Gestão de Projeto & Metodologia Ágil
+
+Projeto gerenciado utilizando práticas de **Scrum** através do **Jira**.
+
+### 🗺️ Visão do Épico e Planejamento da Sprint
+As entregas são organizadas em Épicos de arquitetura e estimadas utilizando *Story Points* para mensurar a complexidade e a capacidade de entrega de cada ciclo de desenvolvimento.
+
+**Épico Atual:** `LAP-EPIC-1: Estruturação de Infraestrutura, Mensageria e Observabilidade`
+
+| Código da Issue | Tipo de Item | Épico Relacionado | Descrição da Funcionalidade / Infraestrutura | Estimativa (Points) |
+| :--- | :--- | :--- | :--- | :---: |
+| 🟢 **LAP-1** | `Feature` | `LAP-EPIC-1` | Implementação do Message Broker com RabbitMQ | 8 pts |
+| 🟢 **LAP-2** | `Feature` | `LAP-EPIC-1` | Configuração de métricas e monitoramento com Prometheus | 5 pts |
+| 🛠️ **LAP-3** | `Infra` | `LAP-EPIC-1` | Conteinerização do ambiente de desenvolvimento com Docker | 5 pts |
+| | | | **Capacidade Total da Sprint:** | **18 pts** |
+
+---
+
+### 🔄 Fluxo de Trabalho (Workflow & Git Branching)
+Git Flow integrado dsiretamente aos status das tarefas no Jira, garantindo a rastreabilidade do código e a estabilidade das branches.
+
+```text
+ [ Backlog ] ──> [ In Progress ] ──> [ Code Review ] ──> [ Done ]
+                       │                     │              │
+                (Criação de Branch)    (Abertura de PR)   (Merge)
 
 ---
