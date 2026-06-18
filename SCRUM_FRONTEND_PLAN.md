@@ -1,7 +1,7 @@
 # Plano de Gestão do Projeto Frontend Angular
 
 ## Visão do Projeto
-Criar uma aplicação frontend Angular independente que consuma o backend Java/Spring Boot existente via API REST. O frontend deve demonstrar competências de Front-End Junior exigidas pela vaga do Itaú, incluindo navegação, componentes reutilizáveis, formulários reativos, validação, feedback visual, integração API e layout responsivo.
+Criar uma aplicação frontend Angular independente que consuma o backend Java/Spring Boot existente via API REST. O frontend deve demonstrar competências incluindo navegação, componentes reutilizáveis, formulários reativos, validação, feedback visual, integração API e layout responsivo.
 
 ## Objetivos Principais
 - Criar a base de projeto Angular em pasta separada do repositório
