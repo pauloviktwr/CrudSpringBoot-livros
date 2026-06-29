@@ -38,18 +38,17 @@ Pré-requisitos: Java 21, Maven 3.9+
 
 ### Local
 ```bash
-mvn clean package -DskipTests=false
-mvn spring-boot:run
+./mvnw clean package
 ```
 
 ### Jar
 ```bash
-java -jar target/*.jar
+./mvnw spring-boot:run -Dspring-boot.run.profiles=local
 ```
 
 ### Testes
 ```bash
-mvn test
+./mvnw test
 ```
 
 ---
