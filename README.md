@@ -62,23 +62,67 @@ Demonstrar competências de desenvolvedor Java em:
 ---
 
 ## 3) Como Executar (build e run)
-Prerequisitos: Java 21, Maven 3.9+
 
-Build e executar localmente:
-```bash
-mvn clean package -DskipTests=false
-mvn spring-boot:run
+Para começar de forma simples, a melhor opção é usar o perfil local com H2. Assim você consegue rodar a aplicação sem precisar configurar MySQL logo no início.
+
+### Pré-requisitos
+- Java 21 instalado e configurado no seu ambiente
+- Git instalado
+- Opcional: Docker Desktop, se você quiser rodar o banco MySQL com o Docker Compose
+
+### Passo 1: Compilar o projeto
+No Windows:
+```powershell
+mvnw.cmd clean package
 ```
 
-Executar jar gerado:
+No macOS/Linux:
 ```bash
-java -jar target/*.jar
+./mvnw clean package
 ```
 
-Executar testes:
-```bash
-mvn test
+Esse comando compila o projeto, executa os testes e gera o arquivo JAR dentro da pasta target.
+
+### Passo 2: Rodar a aplicação localmente
+Para uma execução rápida e sem dependências extras, use o perfil local:
+
+No Windows:
+```powershell
+mvnw.cmd spring-boot:run -Dspring-boot.run.profiles=local
 ```
+
+No macOS/Linux:
+```bash
+./mvnw spring-boot:run -Dspring-boot.run.profiles=local
+```
+
+Esse perfil usa o banco H2 em memória, então você não precisa configurar MySQL para testar a aplicação.
+
+### Passo 3: Abrir a aplicação
+Depois que o Spring Boot iniciar, acesse:
+- http://localhost:8080/livros
+
+### Passo 4: Executar os testes
+```bash
+./mvnw test
+```
+
+### Se quiser usar MySQL em vez de H2
+Se preferir rodar com o banco MySQL, primeiro inicie o ambiente com Docker:
+```bash
+docker compose up -d mysql
+```
+
+Em seguida, rode:
+```bash
+./mvnw spring-boot:run
+```
+
+### Executar o JAR gerado
+```bash
+java -jar target/livros-0.0.1-SNAPSHOT.jar --spring.profiles.active=local
+```
+
 ---
 
 ## 4) Microserviços e Evolução Distribuída
