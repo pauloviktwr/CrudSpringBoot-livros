@@ -7,7 +7,13 @@
 ![Thymeleaf](https://img.shields.io/badge/Thymeleaf-3.0+-brightgreen?logo=thymeleaf&logoColor=white)
 ![Hibernate](https://img.shields.io/badge/Hibernate-ORM-yellow?logo=hibernate&logoColor=white)
 
-Aplicação de gerenciamento de livros em **Java 21** com **Spring Boot 3.2**, arquitetura em camadas e API REST.
+Aplicação Full Stack de gerenciamento de livros.
+
+Back-and em **Java 21** com **Spring Boot 3.2**, arquitetura em camadas e API REST.
+
+Front-and em **Typescript** com **Angular**.
+
+![Vídeo descritivo do sistema](https://github.com/pauloviktwr/CrudSpringBoot-livros/assets/127359543/df975e71-b652-4c05-ad39-d5473330b22d)
 
 ---
 
