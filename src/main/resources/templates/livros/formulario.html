@@ -10,8 +10,8 @@
 <div layout:fragment="conteudo">
     <form method="post" action="/livros">
 
-        <input type="hidden" name="_method" value="put" th:if="${livro != null}">
-        <input type="hidden" name="id" th:value="${livro?.id}">
+        <input type="hidden" name="_method" value="put" th:if="${livro != null and livro.id != null}">
+        <input type="hidden" name="id" th:if="${livro != null and livro.id != null}" th:value="${livro.id}">
 
        <div>
            <label for="titulo">Titulo:</label>
