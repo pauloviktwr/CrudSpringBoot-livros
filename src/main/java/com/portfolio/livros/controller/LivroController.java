@@ -1,10 +1,5 @@
 package com.portfolio.livros.controller;
 
-import com.portfolio.livros.model.Livro;
-import com.portfolio.livros.model.dto.DadosCadastraLivro;
-import com.portfolio.livros.model.dto.DadosEditarLivro;
-import com.portfolio.livros.service.LivroService;
-import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +9,20 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.portfolio.livros.model.Livro;
+import com.portfolio.livros.model.dto.DadosCadastraLivro;
+import com.portfolio.livros.model.dto.DadosEditarLivro;
+import com.portfolio.livros.service.LivroService;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("livros")
@@ -50,9 +58,13 @@ public class LivroController {
 
 
     @PostMapping
-    public String cadastraLivro(@Valid @ModelAttribute DadosCadastraLivro dadosCadastraLivro, BindingResult result) {
+    public String cadastraLivro(@Valid @ModelAttribute DadosCadastraLivro dadosCadastraLivro, BindingResult result, HttpServletRequest request, Model model) {
+        logger.debug("Submissão cadastro - params: id={}, _method={}, titulo={}, autor={}",
+                request.getParameter("id"), request.getParameter("_method"), dadosCadastraLivro.titulo(), dadosCadastraLivro.autor());
+
         if (result.hasErrors()) {
             logger.warn("Erro na validação ao cadastrar livro: {}", result.getAllErrors());
+            model.addAttribute("livro", new Livro(dadosCadastraLivro));
             return "livros/formulario";
         }
         livroService.save(dadosCadastraLivro);
@@ -62,15 +74,24 @@ public class LivroController {
 
     @DeleteMapping
     public String deleteLivro(Long id){
+        if (id == null) {
+            logger.warn("Tentativa de delete sem id");
+            return "redirect:/livros";
+        }
         livroService.deleteById(id);
         logger.info("Livro com ID {} foi deletado com sucesso", id);
         return "redirect:/livros";
     }
 
     @PutMapping
-    public String editarLivro(@Valid @ModelAttribute DadosEditarLivro dadosEditarLivro, BindingResult result){
+    public String editarLivro(@Valid @ModelAttribute DadosEditarLivro dadosEditarLivro, BindingResult result, Model model){
         if (result.hasErrors()) {
             logger.warn("Erro na validação ao editar livro ID {}: {}", dadosEditarLivro.id(), result.getAllErrors());
+            var livro = new Livro();
+            livro.setId(dadosEditarLivro.id());
+            livro.setTitulo(dadosEditarLivro.titulo());
+            livro.setAutor(dadosEditarLivro.autor());
+            model.addAttribute("livro", livro);
             return "livros/formulario";
         }
         livroService.update(dadosEditarLivro);
