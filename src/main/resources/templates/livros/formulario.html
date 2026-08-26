@@ -1,32 +1,38 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="thymeleaf.org"
+<html lang="pt-br"
+      xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{template.html}">
 <head>
-    <title>Formulario Livros</title>
+    <title>Formulário Livros</title>
 </head>
 <body>
 <div layout:fragment="conteudo">
-    <form method="post" action="/livros">
+    <form method="post" th:action="@{/livros}" th:object="${livro}">
 
-        <input type="hidden" name="_method" value="put" th:if="${livro != null and livro.id != null}">
-        <input type="hidden" name="id" th:if="${livro != null and livro.id != null}" th:value="${livro.id}">
-
-       <div>
-           <label for="titulo">Titulo:</label>
-           <input id="titulo" name="titulo" th:value="${livro?.titulo}">
-       </div>
-
-        <div>
-            <label for="Autor">Autor:</label>
-            <input id="autor" name="autor" th:value="${livro?.autor}">
+        <div th:if="${livro?.id != null}">
+            <input type="hidden" name="_method" value="put">
+            <input type="hidden" th:field="*{id}">
         </div>
 
         <div>
-            <input type="submit">
+            <label for="titulo">Título:</label>
+            <input id="titulo" type="text" th:field="*{titulo}">
+            <!-- Exibe a mensagem de erro de validação do título -->
+            <span th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}" style="color: red;"></span>
         </div>
-        <a href="/livros">Meus livros</a>
+
+        <div>
+            <label for="autor">Autor:</label>
+            <input id="autor" type="text" th:field="*{autor}">
+            <!-- Exibe a mensagem de erro de validação do autor -->
+            <span th:if="${#fields.hasErrors('autor')}" th:errors="*{autor}" style="color: red;"></span>
+        </div>
+
+        <div>
+            <input type="submit" value="Salvar">
+        </div>
+        <a th:href="@{/livros}">Meus livros</a>
     </form>
 </div>
 </body>

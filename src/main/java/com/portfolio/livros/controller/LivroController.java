@@ -58,12 +58,13 @@ public class LivroController {
 
 
     @PostMapping
-    public String cadastraLivro(@Valid @ModelAttribute DadosCadastraLivro dadosCadastraLivro, BindingResult result, HttpServletRequest request) {
+    public String cadastraLivro(@Valid @ModelAttribute DadosCadastraLivro dadosCadastraLivro, BindingResult result, HttpServletRequest request, Model model) {
         logger.debug("Submissão cadastro - params: id={}, _method={}, titulo={}, autor={}",
                 request.getParameter("id"), request.getParameter("_method"), dadosCadastraLivro.titulo(), dadosCadastraLivro.autor());
 
         if (result.hasErrors()) {
             logger.warn("Erro na validação ao cadastrar livro: {}", result.getAllErrors());
+            model.addAttribute("livro", new Livro(dadosCadastraLivro));
             return "livros/formulario";
         }
         livroService.save(dadosCadastraLivro);
@@ -83,9 +84,14 @@ public class LivroController {
     }
 
     @PutMapping
-    public String editarLivro(@Valid @ModelAttribute DadosEditarLivro dadosEditarLivro, BindingResult result){
+    public String editarLivro(@Valid @ModelAttribute DadosEditarLivro dadosEditarLivro, BindingResult result, Model model){
         if (result.hasErrors()) {
             logger.warn("Erro na validação ao editar livro ID {}: {}", dadosEditarLivro.id(), result.getAllErrors());
+            var livro = new Livro();
+            livro.setId(dadosEditarLivro.id());
+            livro.setTitulo(dadosEditarLivro.titulo());
+            livro.setAutor(dadosEditarLivro.autor());
+            model.addAttribute("livro", livro);
             return "livros/formulario";
         }
         livroService.update(dadosEditarLivro);
