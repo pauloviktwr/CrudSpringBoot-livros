@@ -6,12 +6,13 @@
 ![Maven](https://img.shields.io/badge/Maven-3.6+-red?logo=apachemaven&logoColor=white)
 ![Thymeleaf](https://img.shields.io/badge/Thymeleaf-3.0+-brightgreen?logo=thymeleaf&logoColor=white)
 ![Hibernate](https://img.shields.io/badge/Hibernate-ORM-yellow?logo=hibernate&logoColor=white)
+![Angular](https://img.shields.io/badge/Angular-21-red?logo=angular&logoColor=white)
 
 Aplicação Full Stack de gerenciamento de livros.
 
-Back-and em **Java 21** com **Spring Boot 3.2**, arquitetura em camadas e API REST.
+Back-end em **Java 21** com **Spring Boot 3.2**, arquitetura em camadas e API REST.
 
-Front-and em **Typescript** com **Angular**.
+Front-end em **TypeScript** com **Angular**.
 
 ![Vídeo descritivo do sistema](https://github.com/pauloviktwr/CrudSpringBoot-livros/assets/127359543/df975e71-b652-4c05-ad39-d5473330b22d)
 
@@ -27,7 +28,7 @@ Entregar projeto Java:
 - Testes automatizados com JUnit 5 e Mockito
 - Containerização com Docker
 - Integração com MySQL e perfil de testes H2
-- Microsserviços e mensageria.
+- Interface web com Angular integrada à API REST.
 
 ---
 
@@ -47,10 +48,20 @@ Pré-requisitos: Java 21, Maven 3.9+
 ./mvnw clean package
 ```
 
-### Jar
+### API com perfil local
 ```bash
 ./mvnw spring-boot:run -Dspring-boot.run.profiles=local
 ```
+
+### Front-end Angular
+Em outro terminal, com a API em execução:
+```bash
+cd frontend
+npm install
+npm start
+```
+
+A aplicação Angular fica disponível em `http://localhost:4200` e usa um proxy local para a API em `http://localhost:8080`.
 
 ### Testes
 ```bash
@@ -84,6 +95,19 @@ docker compose down
   - `src/test/java/com/portfolio/livros/service/LivroServiceTest.java`
   - `src/test/java/com/portfolio/livros/controller/LivroRestControllerTest.java`
   - `src/test/java/com/portfolio/livros/infra/exception/GlobalExceptionHandlerTest.java`
+
+### Testes do front-end
+```bash
+cd frontend
+npm test -- --watch=false
+```
+
+### Endpoints principais
+- `GET /api/livros`: lista livros com paginação
+- `POST /api/livros`: cadastra um livro
+- `GET /api/livros/{id}`: consulta um livro
+- `PUT /api/livros/{id}`: atualiza um livro
+- `DELETE /api/livros/{id}`: remove um livro
 
 ---
 
