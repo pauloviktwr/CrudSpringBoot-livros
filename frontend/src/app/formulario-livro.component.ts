@@ -9,18 +9,18 @@ import { LivroService } from './livro.service';
   standalone: true,
   imports: [ReactiveFormsModule, RouterLink],
   template: `
-    <section class="page-heading"><div><p class="eyebrow">Catalogo</p><h1>{{ editing ? 'Editar livro' : 'Novo livro' }}</h1></div>
-      <a class="button button-quiet" routerLink="/lista">Voltar para lista</a></section>
-    @if (errorMessage) { <p class="alert alert-error" role="alert">{{ errorMessage }}</p> }
+    <section class="d-flex flex-column flex-sm-row align-items-sm-end justify-content-between gap-3 mb-4"><div><p class="text-success text-uppercase fw-bold small mb-2">Catalogo</p><h1>{{ editing ? 'Editar livro' : 'Novo livro' }}</h1></div>
+      <a class="btn btn-outline-secondary" routerLink="/lista">Voltar para lista</a></section>
+    @if (errorMessage) { <p class="alert alert-danger" role="alert">{{ errorMessage }}</p> }
     @if (successMessage) { <p class="alert alert-success" role="status">{{ successMessage }}</p> }
-    <form class="form-panel" [formGroup]="form" (ngSubmit)="save()" novalidate>
-      <label for="titulo">Titulo <span>*</span></label>
-      <input id="titulo" type="text" formControlName="titulo" placeholder="Ex.: Clean Code" />
-      @if (form.controls.titulo.touched && form.controls.titulo.invalid) { <small class="field-error">Informe um titulo entre 2 e 100 caracteres.</small> }
-      <label for="autor">Autor <span>*</span></label>
-      <input id="autor" type="text" formControlName="autor" placeholder="Ex.: Robert C. Martin" />
-      @if (form.controls.autor.touched && form.controls.autor.invalid) { <small class="field-error">Informe um autor entre 2 e 100 caracteres.</small> }
-      <div class="form-actions"><a class="button button-quiet" routerLink="/lista">Cancelar</a><button class="button button-primary" type="submit" [disabled]="saving">{{ saving ? 'Salvando...' : 'Salvar livro' }}</button></div>
+    <form class="bg-white border p-4 p-md-5 col-lg-8" [formGroup]="form" (ngSubmit)="save()" novalidate>
+      <label class="form-label" for="titulo">Titulo <span class="text-danger">*</span></label>
+      <input class="form-control" id="titulo" type="text" formControlName="titulo" placeholder="Ex.: Clean Code" />
+      @if (form.controls.titulo.touched && form.controls.titulo.invalid) { <small class="text-danger">Informe um titulo entre 2 e 100 caracteres.</small> }
+      <label class="form-label mt-3" for="autor">Autor <span class="text-danger">*</span></label>
+      <input class="form-control" id="autor" type="text" formControlName="autor" placeholder="Ex.: Robert C. Martin" />
+      @if (form.controls.autor.touched && form.controls.autor.invalid) { <small class="text-danger">Informe um autor entre 2 e 100 caracteres.</small> }
+      <div class="d-flex justify-content-end gap-2 mt-4"><a class="btn btn-outline-secondary" routerLink="/lista">Cancelar</a><button class="btn btn-success" type="submit" [disabled]="saving">{{ saving ? 'Salvando...' : 'Salvar livro' }}</button></div>
     </form>
   `
 })

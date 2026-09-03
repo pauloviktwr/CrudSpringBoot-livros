@@ -1,9 +1,11 @@
-<header class="topbar">
-  <a class="brand" routerLink="/home"><span class="brand-mark">L</span><span>Livros</span></a>
-  <nav aria-label="Navegacao principal">
-    <a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Inicio</a>
-    <a routerLink="/lista" routerLinkActive="active">Catalogo</a>
+<header class="border-bottom bg-white">
+  <nav class="container navbar navbar-expand-sm py-3" aria-label="Navegacao principal">
+    <a class="navbar-brand fw-bold" routerLink="/home"><span class="brand-mark me-2">L</span>Livros</a>
+    <div class="navbar-nav ms-auto">
+      <a class="nav-link" routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Inicio</a>
+      <a class="nav-link" routerLink="/lista" routerLinkActive="active">Catalogo</a>
+    </div>
   </nav>
 </header>
-<main class="shell"><router-outlet /></main>
-<footer class="footer">Projeto demonstrativo Java Spring Boot + Angular</footer>
+<main class="container py-5"><router-outlet /></main>
+<footer class="border-top text-secondary small py-3"><div class="container">Projeto demonstrativo Java Spring Boot + Angular + Bootstrap</div></footer>

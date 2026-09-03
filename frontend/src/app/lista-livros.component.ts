@@ -8,33 +8,33 @@ import { LivroService } from './livro.service';
   standalone: true,
   imports: [RouterLink],
   template: `
-    <section class="page-heading">
-      <div><p class="eyebrow">Catalogo</p><h1>Livros cadastrados</h1></div>
-      <a class="button button-primary" routerLink="/formulario">Novo livro</a>
+    <section class="d-flex flex-column flex-sm-row align-items-sm-end justify-content-between gap-3 mb-4">
+      <div><p class="text-success text-uppercase fw-bold small mb-2">Catalogo</p><h1>Livros cadastrados</h1></div>
+      <a class="btn btn-success" routerLink="/formulario">Novo livro</a>
     </section>
 
-    @if (loading) { <p class="state">Carregando catalogo...</p> }
-    @if (errorMessage) { <p class="alert alert-error" role="alert">{{ errorMessage }}</p> }
+    @if (loading) { <p class="text-secondary text-center py-5">Carregando catalogo...</p> }
+    @if (errorMessage) { <p class="alert alert-danger" role="alert">{{ errorMessage }}</p> }
     @if (!loading && !errorMessage && page && page.content.length === 0) {
-      <div class="empty state"><h2>Nenhum livro ainda</h2><p>Comece cadastrando o primeiro item do catalogo.</p></div>
+      <div class="alert alert-light border text-center py-5"><h2>Nenhum livro ainda</h2><p>Comece cadastrando o primeiro item do catalogo.</p></div>
     }
     @if (!loading && page && page.content.length > 0) {
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Titulo</th><th>Autor</th><th class="actions">Acoes</th></tr></thead>
+      <div class="table-responsive bg-white border">
+        <table class="table table-hover mb-0 align-middle">
+          <thead class="table-light"><tr><th>Titulo</th><th>Autor</th><th class="text-end">Acoes</th></tr></thead>
           <tbody>
             @for (livro of page.content; track livro.id) {
-              <tr><td>{{ livro.titulo }}</td><td>{{ livro.autor }}</td><td class="actions">
-                <a class="icon-link" [routerLink]="['/formulario', livro.id]">Editar</a>
-                <button class="text-button danger" type="button" (click)="remove(livro)">Excluir</button>
+              <tr><td>{{ livro.titulo }}</td><td>{{ livro.autor }}</td><td class="text-end">
+                <a class="btn btn-sm btn-outline-success me-2" [routerLink]="['/formulario', livro.id]">Editar</a>
+                <button class="btn btn-sm btn-outline-danger" type="button" (click)="remove(livro)">Excluir</button>
               </td></tr>
             }
           </tbody>
         </table>
       </div>
-      <div class="pagination"><span>Pagina {{ page.number + 1 }} de {{ page.totalPages }}</span>
-        <div><button class="button button-quiet" type="button" (click)="load(page.number - 1)" [disabled]="page.number === 0">Anterior</button>
-        <button class="button button-quiet" type="button" (click)="load(page.number + 1)" [disabled]="page.number + 1 >= page.totalPages">Proxima</button></div>
+      <div class="d-flex flex-column flex-sm-row align-items-sm-center justify-content-between gap-3 mt-3"><span class="text-secondary small">Pagina {{ page.number + 1 }} de {{ page.totalPages }}</span>
+        <div><button class="btn btn-outline-secondary btn-sm me-2" type="button" (click)="load(page.number - 1)" [disabled]="page.number === 0">Anterior</button>
+        <button class="btn btn-outline-secondary btn-sm" type="button" (click)="load(page.number + 1)" [disabled]="page.number + 1 >= page.totalPages">Proxima</button></div>
       </div>
     }
   `

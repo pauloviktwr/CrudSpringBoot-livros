@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+:root {
+  --bs-success: #236b4d;
+  --bs-success-rgb: 35, 107, 77;
+  --ink: #17211b;
+  --paper: #f5f3ed;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; color: var(--ink); background: var(--paper); font-family: 'DM Sans', sans-serif; }
+h1, h2, strong, .navbar-brand { font-family: 'Space Grotesk', sans-serif; }
+h1 { line-height: .98; }
+.brand-mark { align-items: center; background: #236b4d; border-radius: 50%; color: #d9ed63; display: inline-flex; height: 2.2rem; justify-content: center; width: 2.2rem; }
+.nav-link.active, .nav-link:hover { color: #236b4d !important; font-weight: 700; }
+.btn-success { --bs-btn-bg: #236b4d; --bs-btn-border-color: #236b4d; --bs-btn-hover-bg: #194e39; --bs-btn-hover-border-color: #194e39; }
+.border-warning { border-color: #d9ed63 !important; }
+footer { background: rgba(255, 255, 255, .45); }
