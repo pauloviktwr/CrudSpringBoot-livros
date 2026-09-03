@@ -7,12 +7,13 @@
 ![Thymeleaf](https://img.shields.io/badge/Thymeleaf-3.0+-brightgreen?logo=thymeleaf&logoColor=white)
 ![Hibernate](https://img.shields.io/badge/Hibernate-ORM-yellow?logo=hibernate&logoColor=white)
 ![Angular](https://img.shields.io/badge/Angular-21-red?logo=angular&logoColor=white)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-purple?logo=bootstrap&logoColor=white)
 
 Aplicação Full Stack de gerenciamento de livros.
 
 Back-end em **Java 21** com **Spring Boot 3.2**, arquitetura em camadas e API REST.
 
-Front-end em **TypeScript** com **Angular**.
+Front-end em **TypeScript** com **Angular** e **Bootstrap**.
 
 ![Vídeo descritivo do sistema](https://github.com/pauloviktwr/CrudSpringBoot-livros/assets/127359543/df975e71-b652-4c05-ad39-d5473330b22d)
 
@@ -28,7 +29,7 @@ Entregar projeto Java:
 - Testes automatizados com JUnit 5 e Mockito
 - Containerização com Docker
 - Integração com MySQL e perfil de testes H2
-- Interface web com Angular integrada à API REST.
+- Interface web com Angular e Bootstrap integrada à API REST.
 
 ---
 
@@ -117,4 +118,5 @@ npm test -- --watch=false
 - API REST e validação de entrada
 - Persistência relacional e configuração de perfis
 - Testes automatizados e CI-ready
+- Interface responsiva com Angular, TypeScript e Bootstrap
 - Docker local com compose

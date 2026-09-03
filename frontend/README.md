@@ -2,6 +2,8 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.5.
 
+The interface uses Bootstrap 5.3 for layout and components, with a small CSS file for project-specific visual identity.
+
 ## Development server
 
 To start a local development server, run:
