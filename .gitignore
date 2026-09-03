@@ -31,6 +31,9 @@ build/
 
 ### VS Code ###
 .vscode/
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
 ANALISE_ARQUITETURA.md
 PLANO_DE_ACAO_REALISTA.md
 src/files/arquivo de requisitos.doc
@@ -46,3 +49,7 @@ src/files/SCRUM_FRONTEND_PLAN.md
 SCRUM_FRONTEND_PLAN.md
 SCRUM_FRONTEND_PLAN.md
 src/files/PLANO_SCRUM_TOTVS.md
+files/Analista de Desenvolvimento de Software Júnior Agro TOTVS.md
+files/arquivo de requisitos.doc
+files/GUIA_FRONTEND_DESENVOLVIMENTO.md
+files/PLANO_SCRUM_TOTVS.md
